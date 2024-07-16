@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Sync: EST (USA), ACST (AUS), CEST (ESP) - Dark Mode</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }
+        .time-display {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .time-zone {
+            text-align: center;
+        }
+        .time {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #bb86fc;
+        }
+        .date {
+            font-size: 14px;
+            color: #03dac6;
+            margin-top: 5px;
+        }
+        .country {
+            font-size: 16px;
+            color: #cf6679;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Sync: EST (USA), ACST (AUS), CEST (ESP)</h1>
+        <div class="time-display">
+            <div class="time-zone">
+                <h2>EST <span class="country">(USA)</span></h2>
+                <div id="est-time" class="time"></div>
+                <div id="est-date" class="date"></div>
+            </div>
+            <div class="time-zone">
+                <h2>ACST <span class="country">(AUS)</span></h2>
+                <div id="acst-time" class="time"></div>
+                <div id="acst-date" class="date"></div>
+            </div>
+            <div class="time-zone">
+                <h2>CEST <span class="country">(ESP)</span></h2>
+                <div id="cest-time" class="time"></div>
+                <div id="cest-date" class="date"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTimes() {
+            const timeZones = [
+                { id: 'est', name: "America/New_York" },
+                { id: 'acst', name: "Australia/Adelaide" },
+                { id: 'cest', name: "Europe/Madrid" }
+            ];
+
+            timeZones.forEach(zone => {
+                const now = moment().tz(zone.name);
+                document.getElementById(`${zone.id}-time`).textContent = now.format('h:mm:ss A');
+                document.getElementById(`${zone.id}-date`).textContent = now.format('MMMM D, YYYY');
+            });
+        }
+
+        updateTimes();
+        setInterval(updateTimes, 1000);
+    </script>
+</body>
+</html>
